@@ -1,0 +1,78 @@
+<div class="backdrop" 
+    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
+           background: url(../../../../assets/images/bg/auth-bg.jpg) no-repeat center center; 
+           background-size: cover; filter: blur(3px);">
+</div>
+
+<div class="auth-wrapper d-flex justify-content-center align-items-center vh-100">
+    <div>
+        <div class="auth-box shadow-lg rounded bg-white p-4">
+            <!-- Logo y Título -->
+            <div class="text-center">
+                <span class="db">
+                    <img src="../../../../assets/images/logos/logo.png" alt="logo" height="80px" class="mb-3">
+                </span>
+                <hr>
+                <h3 class="font-medium mb-4">Iniciar sesión</h3>
+            </div>
+
+            <!-- Formulario de Login -->
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="form" (ngSubmit)="submit()" class="form-horizontal mt-3" novalidate>
+                        <!-- Credencial -->
+                        <div class="input-group mb-3">
+                            <span id="basic-addon1" class="input-group-text">
+                                <i class="bi bi-person-fill"></i>
+                            </span>
+                            <input 
+                                class="form-control form-control-lg" 
+                                type="text" 
+                                formControlName="email" 
+                                name="email" 
+                                placeholder="Correo Electronico">
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="input-group mb-3">
+                            <span id="basic-addon2" class="input-group-text">
+                                <i class="bi bi-lock-fill"></i>
+                            </span>
+                            <input 
+                                class="form-control form-control-lg" 
+                                type="password" 
+                                formControlName="password" 
+                                name="password" 
+                                placeholder="Contraseña">
+                        </div>
+
+                        <!-- Enlace de Recuperación -->
+                        <!-- <div class="form-group mb-3 text-end">
+                            <a href="#" class="text-info text-decoration-none">¿Olvidaste tu contraseña?</a>
+                        </div> -->
+                        
+                        <hr>
+                        <br>
+                        <!-- Botón de Continuar -->
+                        <div class="form-group text-center mt-3">
+                            <button 
+                                [disabled]="loading" 
+                                type="submit" 
+                                class="btn btn-info btn-lg w-100">
+                                <span *ngIf="!loading">Continuar</span>
+                                <span *ngIf="loading">Por favor, espere...</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Imagen de soporte en la esquina inferior derecha -->
+    <div class="position-absolute bottom-0 end-0 size-support">
+        <div class="d-flex justify-content-end animate__animated animate__bounce">
+            <img src="../../../../assets/images/logos/reporte.png" class="rounded w-100" alt="Soporte">
+        </div>
+    </div>
+</div>
