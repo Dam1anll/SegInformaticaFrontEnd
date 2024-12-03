@@ -1,78 +1,79 @@
-<div class="backdrop" 
-    style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; 
-           background: url(../../../../assets/images/bg/auth-bg.jpg) no-repeat center center; 
-           background-size: cover; filter: blur(3px);">
-</div>
-
-<div class="auth-wrapper d-flex justify-content-center align-items-center vh-100">
-    <div>
-        <div class="auth-box shadow-lg rounded bg-white p-4">
-            <!-- Logo y Título -->
-            <div class="text-center">
-                <span class="db">
-                    <img src="../../../../assets/images/logos/logo.png" alt="logo" height="80px" class="mb-3">
-                </span>
-                <hr>
-                <h3 class="font-medium mb-4">Iniciar sesión</h3>
+<div class="futuristic-login-container">
+    <div class="login-panel">
+        <div class="panel-overlay"></div>
+        <div class="login-content">
+            <div class="login-header">
+                <h2>SYSTEM ACCESS</h2>
+                <p>Secure Authentication Required</p>
             </div>
 
-            <!-- Formulario de Login -->
-            <div class="row">
-                <div class="col-12">
-                    <form [formGroup]="form" (ngSubmit)="submit()" class="form-horizontal mt-3" novalidate>
-                        <!-- Credencial -->
-                        <div class="input-group mb-3">
-                            <span id="basic-addon1" class="input-group-text">
-                                <i class="bi bi-person-fill"></i>
-                            </span>
-                            <input 
-                                class="form-control form-control-lg" 
-                                type="text" 
-                                formControlName="email" 
-                                name="email" 
-                                placeholder="Correo Electronico">
+            <form [formGroup]="form" (ngSubmit)="submit()" class="login-form" novalidate>
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="bi bi-shield-lock"></i> Credentials
+                    </label>
+                    <div class="input-wrapper">
+                        <input 
+                            id="email"
+                            type="text" 
+                            formControlName="email" 
+                            class="form-control" 
+                            placeholder="Enter access key"
+                            [ngClass]="{'input-error': form.get('email').invalid && form.get('email').touched}"
+                        >
+                        <div 
+                            *ngIf="form.get('email').invalid && form.get('email').touched" 
+                            class="error-message"
+                        >
+                            Invalid access credentials
                         </div>
-
-                        <!-- Contraseña -->
-                        <div class="input-group mb-3">
-                            <span id="basic-addon2" class="input-group-text">
-                                <i class="bi bi-lock-fill"></i>
-                            </span>
-                            <input 
-                                class="form-control form-control-lg" 
-                                type="password" 
-                                formControlName="password" 
-                                name="password" 
-                                placeholder="Contraseña">
-                        </div>
-
-                        <!-- Enlace de Recuperación -->
-                        <!-- <div class="form-group mb-3 text-end">
-                            <a href="#" class="text-info text-decoration-none">¿Olvidaste tu contraseña?</a>
-                        </div> -->
-                        
-                        <hr>
-                        <br>
-                        <!-- Botón de Continuar -->
-                        <div class="form-group text-center mt-3">
-                            <button 
-                                [disabled]="loading" 
-                                type="submit" 
-                                class="btn btn-info btn-lg w-100">
-                                <span *ngIf="!loading">Continuar</span>
-                                <span *ngIf="loading">Por favor, espere...</span>
-                            </button>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Imagen de soporte en la esquina inferior derecha -->
-    <div class="position-absolute bottom-0 end-0 size-support">
-        <div class="d-flex justify-content-end animate__animated animate__bounce">
-            <img src="../../../../assets/images/logos/reporte.png" class="rounded w-100" alt="Soporte">
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <i class="bi bi-key"></i> Authorization
+                    </label>
+                    <div class="input-wrapper password-wrapper">
+                        <input 
+                            id="password"
+                            [type]="showPassword ? 'text' : 'password'" 
+                            formControlName="password" 
+                            class="form-control" 
+                            placeholder="Enter authorization code"
+                            [ngClass]="{'input-error': form.get('password').invalid && form.get('password').touched}"
+                        >
+                        <button 
+                            type="button" 
+                            class="password-toggle"
+                            (click)="togglePasswordVisibility()"
+                        >
+                            <i [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
+                        </button>
+                        <div 
+                            *ngIf="form.get('password').invalid && form.get('password').touched" 
+                            class="error-message"
+                        >
+                            Authorization verification failed
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login-actions">
+                    <button 
+                        type="submit" 
+                        class="btn-login"
+                        [disabled]="form.invalid || loading"
+                    >
+                        <span class="btn-text">
+                            {{ loading ? 'AUTHENTICATING...' : 'AUTHORIZE ACCESS' }}
+                        </span>
+                        <span class="btn-icon">
+                            <i class="bi bi-arrow-right-circle"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

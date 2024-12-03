@@ -1,18 +1,105 @@
-.menuleft {
-    color: black !important;
-    font-weight: 600;
-    cursor: pointer;
+:root {
+  --dark-bg: #0d1117;
+  --dark-panel: #161b22;
+  --accent-color: #2188ff;
+  --text-color: #c9d1d9;
+  --sidebar-hover: rgba(33, 136, 255, 0.2);
+}
+
+.sidebar-nav {
+  background-color: var(--dark-panel);
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu {
+  padding: 20px;
+  list-style: none;
+}
+
+.sidebar-item {
+  margin-bottom: 10px;
+
+  .nav-section {
+    color: var(--accent-color);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
     &:hover {
-      color: white !important;
+      background-color: var(--sidebar-hover);
+      transform: translateX(5px);
+    }
+
+    i {
+      margin-right: 10px;
+      color: var(--accent-color);
+    }
+
+    .dropdown-icon {
+      margin-left: auto;
+      transition: transform 0.3s ease;
     }
   }
-  
-  .sidebar-item.active > a,
-  .sidebar-item.active > a:hover,
-  .submenu .sidebar-item.active > a,
-  .submenu .sidebar-item.active > a:hover,
-  .menuleft.active {
-    color: white !important;
+
+  &.active > .sidebar-link {
+    background-color: var(--sidebar-hover);
+    color: var(--accent-color);
   }
-  
-  
+
+  .submenu {
+    background-color: var(--dark-bg);
+    border-left: 2px solid var(--accent-color);
+    margin-left: 15px;
+    list-style: none;
+    
+    .sidebar-item {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.sidebar-footer {
+  margin-top: 20px;
+  text-align: center;
+
+  .logout-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f85149;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken(#f85149, 10%);
+    }
+
+    i {
+      margin-right: 10px;
+    }
+  }
+}
+
+hr {
+  border-color: var(--accent-color);
+  opacity: 0.2;
+  margin: 15px 0;
+}

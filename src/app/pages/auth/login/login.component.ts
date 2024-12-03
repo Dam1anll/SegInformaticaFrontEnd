@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FunctionsService } from 'src/app/services/functions.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -13,10 +14,11 @@ import { FunctionsService } from 'src/app/services/functions.service';
 })
 export class LoginComponent implements OnInit {
   form: any;
-  loading: boolean | undefined;
+  loading = false;
+  showPassword = false;
 
   constructor(
-    public api: ApiService,
+    private api: ApiService,
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private router: Router,
@@ -27,64 +29,79 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    // Configurar el formulario con validaciones dinámicas
+  ngOnInit(): void {
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required]], // Campo único para credencial (matrícula, número de empleado o correo)
-      password: ['', Validators.required], // Contraseña obligatoria
+      email: ['', [
+        Validators.required, 
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+      ]],
+      password: ['', [
+        Validators.required, 
+        Validators.minLength(6)
+      ]]
     });
   }
 
-  submit() {
-    if (this.form.dirty && this.form.valid) {
-      this.login();
-    } else {
-      // Marcar todos los campos como tocados si no son válidos
-      for (let i in this.form.controls) this.form.controls[i].markAsTouched();
-    }
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
-  login() {
+  submit(): void {
+    if (this.form.invalid) {
+      this.markFormGroupTouched(this.form);
+      return;
+    }
+
+    this.login();
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup): void {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  private login(): void {
     this.loading = true;
 
-    // Hacer la petición POST al endpoint de login
-    this.api.post_('auth/users', this.form.value).subscribe({
-      complete: () => {},
-      error: (error) => {
-        this.loading = false;
-        console.error('Error in login:', error);
-        this.fun.presentAlertError('Error', error.error.message);
-      },
-      next: (response) => {
-        this.loading = false;
-        console.log(response);
-        localStorage.setItem("maestros", JSON.stringify((response as any).maestro));
-        this.auth.setLogin(response); // Guardar los datos del usuario autenticado
-        this.navigate();
-      },
-    });
+    this.api.post_('auth/users', this.form.value)
+      .pipe(
+        finalize(() => this.loading = false)
+      )
+      .subscribe({
+        next: (response: any) => {
+          localStorage.setItem("maestros", JSON.stringify(response.maestro));
+          this.auth.setLogin(response);
+          this.navigate();
+        },
+        error: (error) => {
+          console.error('Login error:', error);
+          this.fun.presentAlertError('Error', error.error?.message || 'Login failed');
+        }
+      });
   }
 
-  navigate() {
-    const user = this.auth.getUser(); // Obtener los datos del usuario desde el servicio AuthService
-
-    if (user && user.role) {
-      // Redirigir al dashboard correspondiente según el rol
-      switch (user.role) {
-        case 'ADMIN':
-          this.router.navigateByUrl('/dashboard');
-          break;
-        case 'STUDENT':
-          this.router.navigateByUrl('/component/inicioalumno');
-          break;
-        case 'TEACHER':
-          this.router.navigateByUrl('/component/maestro');
-          break;
-        default:
-          this.router.navigateByUrl('/not-found'); // Ruta predeterminada para roles desconocidos
-      }
-    } else {
-      this.router.navigateByUrl('/login'); // Redirigir al login si no hay datos del usuario
+  private navigate(): void {
+    const user = this.auth.getUser();
+    if (!user?.role) {
+      this.router.navigateByUrl('/login');
+      return;
     }
+
+    const routes: { [key: string]: string } = {
+      'ADMIN': '/dashboard',
+      'STUDENT': '/component/inicioalumno',
+      'TEACHER': '/component/maestro'
+    };
+
+    this.router.navigateByUrl(routes[user.role] || '/not-found');
   }
 }
