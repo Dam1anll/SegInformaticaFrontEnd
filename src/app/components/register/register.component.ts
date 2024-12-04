@@ -7,12 +7,12 @@ import { FunctionsService } from 'src/app/services/functions.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: false,
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   form: any;
   loading = false;
   showPassword = false;
@@ -35,12 +35,14 @@ export class LoginComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.formBuilder.group({
+      name: ['', [Validators.required]],
       email: ['', [
         Validators.required, 
         Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
       ]],
       password: ['', [
-        Validators.required, 
+        Validators.required,
+        Validators.minLength(6)
       ]]
     });
   }
@@ -55,7 +57,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.login();
+    this.register();
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
@@ -68,22 +70,22 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private login(): void {
+  private register(): void {
     this.loading = true;
 
-    this.api.post_('auth/users', this.form.value)
+    this.api.post_('auth/register', this.form.value)
       .pipe(
         finalize(() => this.loading = false)
       )
       .subscribe({
         next: (response: any) => {
-          localStorage.setItem("maestros", JSON.stringify(response.maestro));
+          this.fun.presentAlert('Success', 'Account created successfully!');
           this.auth.setLogin(response);
           this.navigate();
         },
         error: (error) => {
-          console.error('Login error:', error);
-          this.fun.presentAlertError('Error', error.error?.message || 'Login failed');
+          console.error('Register error:', error);
+          this.fun.presentAlertError('Error', error.error?.message || 'Registration failed');
         }
       });
   }
@@ -96,13 +98,13 @@ export class LoginComponent implements OnInit {
     }
 
     const routes: { [key: string]: string } = {
-      'ADMIN': '/dashboard',
+      'ADMIN, USER': '/dashboard',
     };
 
     this.router.navigateByUrl(routes[user.role] || '/not-found');
   }
 
-  goToRegister() {
-    this.router.navigate(['/register']);
+  goToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }

@@ -4,9 +4,15 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { LogoutComponent } from './pages/auth/logout/logout.component';
 import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { RegisterComponent } from './components/register/register.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 // la ruta a preguntas
 
 export const Approutes: Routes = [
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
   {
     path: 'login',
     component: LoginComponent,
@@ -33,7 +39,7 @@ export const Approutes: Routes = [
         loadChildren: () =>
           import('./components/component.module').then((m) => m.ComponentsModule),
         canActivate: [AuthGuard],
-        data: { roles: ['ADMIN', 'STUDENT','TEACHER'] }
+        data: { roles: ['ADMIN'] }
       },
     ],
   },

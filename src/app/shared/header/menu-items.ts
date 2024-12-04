@@ -1,9 +1,9 @@
-import { RouteInfo } from './sidebar.metadata';
+import {RouteInfo} from './sidebar.metadata';
 
 export const ROUTES: RouteInfo[] = [
   {
     path: '/dashboard',
-    title: 'Inicio',
+    title: 'Panel de control',
     icon: 'bi bi-speedometer2',
     role: ['ADMIN'], 
     class: '',

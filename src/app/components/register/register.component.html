@@ -1,0 +1,111 @@
+<div class="futuristic-register-container">
+    <div class="register-panel">
+      <div class="panel-overlay"></div>
+      <div class="register-content">
+        <div class="register-header">
+          <h2>CREATE ACCOUNT</h2>
+          <p>Enter your details to register</p>
+        </div>
+  
+        <form [formGroup]="form" (ngSubmit)="submit()" class="register-form" novalidate>
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name" class="form-label">
+              <i class="bi bi-person"></i> Full Name
+            </label>
+            <div class="input-wrapper">
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                class="form-control"
+                placeholder="Enter your full name"
+                [ngClass]="{'input-error': form.get('name').invalid && form.get('name').touched}"
+              >
+              <div
+                *ngIf="form.get('name').invalid && form.get('name').touched"
+                class="error-message"
+              >
+                Name is required
+              </div>
+            </div>
+          </div>
+  
+          <!-- Email Field -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              <i class="bi bi-envelope"></i> Email
+            </label>
+            <div class="input-wrapper">
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="Enter your email"
+                [ngClass]="{'input-error': form.get('email').invalid && form.get('email').touched}"
+              >
+              <div
+                *ngIf="form.get('email').invalid && form.get('email').touched"
+                class="error-message"
+              >
+                Invalid email format
+              </div>
+            </div>
+          </div>
+  
+          <!-- Password Field -->
+          <div class="form-group">
+            <label for="password" class="form-label">
+              <i class="bi bi-key"></i> Password
+            </label>
+            <div class="input-wrapper password-wrapper">
+              <input
+                id="password"
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                class="form-control"
+                placeholder="Enter your password"
+                [ngClass]="{'input-error': form.get('password').invalid && form.get('password').touched}"
+              >
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePasswordVisibility()"
+              >
+                <i [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'"></i>
+              </button>
+              <div
+                *ngIf="form.get('password').invalid && form.get('password').touched"
+                class="error-message"
+              >
+                Password must meet the criteria
+              </div>
+            </div>
+          </div>
+  
+          <!-- Register Actions -->
+          <div class="register-actions">
+            <button
+              type="submit"
+              class="btn-register"
+              [disabled]="form.invalid || loading"
+            >
+              <span class="btn-text">
+                {{ loading ? 'CREATING ACCOUNT...' : 'CREATE ACCOUNT' }}
+              </span>
+              <span class="btn-icon">
+                <i class="bi bi-person-check"></i>
+              </span>
+            </button>
+          </div>
+          <div>
+            <p class="register-footer">
+              Already have an account? <a (click)="goToLogin()" class="login-account">Sign in here</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

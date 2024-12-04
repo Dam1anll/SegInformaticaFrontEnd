@@ -29,7 +29,6 @@ export class AuthGuard implements CanActivate {
 
     if (!userRole || (requiredRoles && !requiredRoles.includes(userRole))) {
       this.message.add({ severity: 'error', summary: 'Error', detail: 'No tienes permisos para acceder a esta página' });
-      // this.router.navigateByUrl('/component/inicioalumno');
       return false;
     }
 

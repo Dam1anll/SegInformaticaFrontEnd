@@ -10,6 +10,7 @@ import { UsersComponent } from './users/users.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { TextoComponent } from './texto/texto.component';
+import { RegisterComponent } from './register/register.component';
 
 // PrimeNG
 import { DialogModule } from 'primeng/dialog';
@@ -47,6 +48,7 @@ import { MessagesModule } from 'primeng/messages';
   declarations: [
     UsersComponent,
     TextoComponent,
+    RegisterComponent,
   ]
 })
 export class ComponentsModule { }

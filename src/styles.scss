@@ -1,60 +1,129 @@
-/* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-
-.auth-wrapper {
-    min-height: 100vh;
+:root {
+    --dark-bg: #0d1117;
+    --dark-panel: #161b22;
+    --accent-color: #2188ff;
+    --text-color: #c9d1d9;
+    --sidebar-hover: rgba(33, 136, 255, 0.2);
+  }
+  
+  #main-wrapper {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+  
+    .topbar {
+      background-color: var(--dark-panel) !important;
+      box-shadow: 0 0 20px rgba(33, 136, 255, 0.2);
+      
+      .top-navbar {
+        background-color: var(--dark-panel);
+        
+        .navbar-header {
+          background-color: var(--dark-panel) !important;
+          
+          .nav-toggler {
+            color: var(--accent-color);
+            transition: color 0.3s ease;
+            
+            &:hover {
+              color: var(--text-color);
+            }
+          }
+          
+          .navbar-brand {
+            .logo-icon {
+              img {
+                filter: brightness(0) invert(1) sepia(100%) saturate(10000%) hue-rotate(180deg);
+              }
+            }
+          }
+        }
+        
+        .navbar-collapse {
+          background-color: var(--dark-panel) !important;
+        }
+      }
+    }
+  
+    .left-sidebar {
+      background-color: var(--dark-panel) !important;
+      box-shadow: 0 0 20px rgba(33, 136, 255, 0.2);
+    }
+  
+    .page-wrapper {
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+  
+      .container-fluid {
+        background-color: var(--dark-bg);
+      }
+  
+      .footer {
+        background-color: var(--dark-panel);
+        color: var(--text-color);
+        padding: 15px;
+        border-top: 1px solid rgba(33, 136, 255, 0.2);
+        
+        a {
+          color: var(--accent-color);
+          text-decoration: none;
+          transition: color 0.3s ease;
+          
+          &:hover {
+            color: lighten(#2188ff, 10%);
+          }
+        }
+      }
+    }
+  
+    // Responsive mobile menu
+    &.show-sidebar {
+      .left-sidebar {
+        transform: translateX(0);
+        box-shadow: 0 0 30px rgba(33, 136, 255, 0.3);
+      }
+    }
+  }
+  
+  // Additional global styles to match the theme
+  body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+  }
+  
+  // Overlay effect for hover states
+  .hover-overlay {
     position: relative;
-}
-
-.auth-wrapper .auth-box {
-    background: #fff;
-    padding: 20px;
-    box-shadow: 1px 0 20px #00000014;
-    max-width: 400px;
-    min-width: 300px;
-}
-
-.alert-primary {
-    --bs-alert-color: #fefdff;
-    --bs-alert-bg: #7460ee;
-    --bs-alert-border-color: #7460ee;
-}
-
-.form-check {
-    display: block;
-    min-height: 1.5rem;
-    padding-left: 1.875em;
-    margin-bottom: 0.125rem;
-}
-
-.fv-plugins-message-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.fv-plugins-message-container .error {
-    font-size: 12px;
-    margin-top: 5px;
-    color: red;
-}
-
-.auth-box .form-control {
-    position: relative;
-}
-
-.auth-box .fv-plugins-message-container {
-    position: absolute;
-    bottom: -20px;
-}
-
-.modal-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9998;
-    backdrop-filter: blur(8px);
-}
+    
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 0%, rgba(33, 136, 255, 0.1) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    
+    &:hover:before {
+      opacity: 1;
+    }
+  }
+  
+  // Responsive adjustments
+  @media (max-width: 991px) {
+    #main-wrapper {
+      .left-sidebar {
+        position: fixed;
+        top: 0;
+        left: -250px;
+        height: 100vh;
+        width: 250px;
+        z-index: 1050;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+    }
+  }

@@ -6,12 +6,8 @@ $sidebar-first-level-link-padding: 10px 15px;
 $sidebar-first-level-icon-size: 14px;
 $sidebar-custom-color: #0c9883;
 
-/*******************
-Main sidebar
-******************/
-
 .left-sidebar {
-  position: fixed; /* Cambia a fixed para que siga al usuario al desplazarse */
+  position: fixed;
   width: $sidebar-width-full;
   height: 100%;
   top: 0;
@@ -20,17 +16,15 @@ Main sidebar
   background: $sidebar;
   box-shadow: $shadow;
   transition: 0.2s ease-in;
-  overflow-y: auto; /* Permite el scroll vertical */
+  overflow-y: auto;
 
-  /* Oculta el scrollbar predeterminado en navegadores WebKit */
+ 
   &::-webkit-scrollbar {
-    display: none; /* Oculta el scrollbar */
+    display: none; 
   }
 }
 
-/*******************
-sidebar navigation
-******************/
+
 
 .sidebar-nav {
   overflow-y: auto; /* Permite el scroll en la navegación */
@@ -92,7 +86,7 @@ sidebar navigation
         &.active,
         &:hover {
           opacity: 1;
-          background: #0c9883; /* Cambia el color de fondo al pasar el mouse */
+          background: rgba(33, 136, 255, 0.2); /* Cambia el color de fondo al pasar el mouse */
           color: white;  /* Cambia el color del texto al pasar el mouse */
           border-radius: 4px;
         }
@@ -114,11 +108,3 @@ sidebar navigation
   }
 }
 
-/* .logout-mobile-only {
-  background-color: #ff5050;
-  position: absolute;
-  cursor: pointer;
-  bottom: 28px;
-  border-radius: 10px;
-  right: 40px;
-} */

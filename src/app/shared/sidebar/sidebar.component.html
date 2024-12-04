@@ -1,4 +1,4 @@
-<nav class="sidebar-nav">
+ <nav class="sidebar-nav">
   <ul id="sidebarnav" class="p-3 menuleft">
     <li class="sidebar-item" *ngFor="let sidebarnavItem of sidebarnavItems" [class.active]="showMenu === sidebarnavItem.title || isSubmenuActive(sidebarnavItem)">
       <div class="nav-small-cap" *ngIf="sidebarnavItem.extralink === true && sidebarnavItem.role">{{sidebarnavItem.title}}</div>
@@ -44,4 +44,4 @@
       <a href="/logout" class="btn d-block w-100 p-2 btn-danger"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</a>
     </li>
   </ul>
-</nav>
+</nav> 
