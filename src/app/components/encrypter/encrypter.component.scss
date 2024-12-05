@@ -15,7 +15,7 @@
 .encryption-container {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; // Alinea al principio en el eje vertical
     height: 100vh;
     background-color: var(--dark-bg);
     font-family: 'Arial', sans-serif;
@@ -24,10 +24,11 @@
 }
 
 .encryption-panel {
+    margin-top: 20px; // Espaciado desde la parte superior
     display: flex;
     width: 100%;
     max-width: 1000px;
-    height: 90vh;
+    height: auto; // Ajusta automáticamente según el contenido
     max-height: 700px;
     background-color: var(--dark-panel);
     border-radius: 10px;
