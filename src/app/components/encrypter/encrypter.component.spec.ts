@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextoComponent } from './texto.component';
+import { EncrypterComponent } from './encrypter.component';
 
-describe('TextoComponent', () => {
-  let component: TextoComponent;
-  let fixture: ComponentFixture<TextoComponent>;
+describe('EncrypterComponent', () => {
+  let component: EncrypterComponent;
+  let fixture: ComponentFixture<EncrypterComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TextoComponent]
+      imports: [EncrypterComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TextoComponent);
+    fixture = TestBed.createComponent(EncrypterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

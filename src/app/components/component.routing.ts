@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { UsersComponent } from './users/users.component';
 import { AuthGuard } from '../guards/auth.guard';
 
-import { TextoComponent } from './texto/texto.component';
+import { EncrypterComponent } from './encrypter/encrypter.component';
 import { RegisterComponent } from './register/register.component';
 
 export const ComponentsRoutes: Routes = [
@@ -16,8 +16,8 @@ export const ComponentsRoutes: Routes = [
 				data: { roles: ['ADMIN'] }
 			},
 			{
-				path: 'texto',
-				component: TextoComponent,
+				path: 'encrypter',
+				component: EncrypterComponent,
 				canActivate: [AuthGuard],
 				data: { roles: ['ADMIN'] }
 			},

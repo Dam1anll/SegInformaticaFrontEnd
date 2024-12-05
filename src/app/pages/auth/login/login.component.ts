@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   form: any;
   loading = false;
   showPassword = false;
+  failedAttempts = 0;
+  maxAttempts = 5; // Máximo de intentos permitidos
 
   constructor(
     private api: ApiService,
@@ -36,11 +38,14 @@ export class LoginComponent implements OnInit {
   private initForm(): void {
     this.form = this.formBuilder.group({
       email: ['', [
-        Validators.required, 
-        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), // Validación básica de correo
+        Validators.pattern(/^[^<>!#$%^&*()=+{}[\]|\\:;"',<>?/]*$/) // Prohíbe caracteres especiales no deseados
       ]],
       password: ['', [
-        Validators.required, 
+        Validators.required,
+        Validators.minLength(8), // Contraseña mínima de 8 caracteres
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/) // Al menos un número y una letra
       ]]
     });
   }
@@ -50,6 +55,11 @@ export class LoginComponent implements OnInit {
   }
 
   submit(): void {
+    if (this.failedAttempts >= this.maxAttempts) {
+      this.fun.presentAlertError('Cuenta bloqueada', 'Has alcanzado el número máximo de intentos fallidos.');
+      return;
+    }
+
     if (this.form.invalid) {
       this.markFormGroupTouched(this.form);
       return;
@@ -79,11 +89,18 @@ export class LoginComponent implements OnInit {
         next: (response: any) => {
           localStorage.setItem("maestros", JSON.stringify(response.maestro));
           this.auth.setLogin(response);
+          this.failedAttempts = 0; // Reiniciar intentos fallidos tras un inicio exitoso
           this.navigate();
         },
         error: (error) => {
           console.error('Login error:', error);
-          this.fun.presentAlertError('Error', error.error?.message || 'Login failed');
+          this.failedAttempts += 1;
+          const remainingAttempts = this.maxAttempts - this.failedAttempts;
+          const errorMessage = remainingAttempts > 0 
+            ? `Error en el inicio de sesión. Intentos restantes: ${remainingAttempts}` 
+            : 'Has alcanzado el número máximo de intentos.';
+
+          this.fun.presentAlertError('Error', errorMessage);
         }
       });
   }
@@ -96,7 +113,7 @@ export class LoginComponent implements OnInit {
     }
 
     const routes: { [key: string]: string } = {
-      'ADMIN': '/dashboard',
+      'ADMIN': '/encrypter',
     };
 
     this.router.navigateByUrl(routes[user.role] || '/not-found');

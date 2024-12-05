@@ -35,14 +35,19 @@ export class RegisterComponent implements OnInit {
 
   private initForm(): void {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
+      name: ['', [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z ]+$/) // Solo letras y espacios
+      ]],
       email: ['', [
-        Validators.required, 
-        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/), // Validación básica de correo
+        Validators.pattern(/^[^<>!#$%^&*()=+{}[\]|\\:;"',<>?/]*$/) // Prohíbe caracteres especiales no deseados
       ]],
       password: ['', [
         Validators.required,
-        Validators.minLength(6)
+        Validators.minLength(8), // Contraseña mínima de 8 caracteres
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/) // Al menos un número y una letra
       ]]
     });
   }
@@ -79,13 +84,13 @@ export class RegisterComponent implements OnInit {
       )
       .subscribe({
         next: (response: any) => {
-          this.fun.presentAlert('Success', 'Account created successfully!');
+          this.fun.presentAlert('Success', '¡Cuenta creada exitosamente!');
           this.auth.setLogin(response);
           this.navigate();
         },
         error: (error) => {
           console.error('Register error:', error);
-          this.fun.presentAlertError('Error', error.error?.message || 'Registration failed');
+          this.fun.presentAlertError('Error', error.error?.message || 'El registro falló.');
         }
       });
   }
@@ -98,7 +103,8 @@ export class RegisterComponent implements OnInit {
     }
 
     const routes: { [key: string]: string } = {
-      'ADMIN, USER': '/dashboard',
+      'ADMIN': '/dashboard/admin',
+      'USER': '/dashboard/user',
     };
 
     this.router.navigateByUrl(routes[user.role] || '/not-found');

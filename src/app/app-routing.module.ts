@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { EncrypterComponent } from './components/encrypter/encrypter.component';
 // la ruta a preguntas
 
 export const Approutes: Routes = [

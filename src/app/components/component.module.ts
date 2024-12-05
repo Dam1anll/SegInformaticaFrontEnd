@@ -9,8 +9,8 @@ import { ComponentsRoutes } from './component.routing';
 import { UsersComponent } from './users/users.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
-import { TextoComponent } from './texto/texto.component';
 import { RegisterComponent } from './register/register.component';
+import { EncrypterComponent } from './encrypter/encrypter.component';
 
 // PrimeNG
 import { DialogModule } from 'primeng/dialog';
@@ -47,8 +47,8 @@ import { MessagesModule } from 'primeng/messages';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     UsersComponent,
-    TextoComponent,
     RegisterComponent,
+    EncrypterComponent,
   ]
 })
 export class ComponentsModule { }

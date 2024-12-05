@@ -1,3 +1,84 @@
-<div class="mt-2">
-  <app-top-cards></app-top-cards>
+<div class="top-container">
+  <div class="top-div">
+      <div class="top-div-header">
+          <span class="top-div-title">¿Qué es AES-256?</span>
+          <i class="top-div-icon bi bi-shield-lock"></i>
+      </div>
+      <div class="top-div-content">
+          <p class="top-div-description">
+              AES-256 (Advanced Encryption Standard) es un algoritmo de cifrado simétrico considerado uno de los más seguros actualmente. Utiliza una clave de 256 bits, lo que significa 2^256 combinaciones posibles, haciendo prácticamente imposible su descifrado por fuerza bruta.
+          </p>
+          <p class="top-div-description">
+              Desarrollado por el NIST en 2001, reemplazó al antiguo estándar DES y es ampliamente utilizado por gobiernos, instituciones financieras y empresas de tecnología para proteger información sensible.
+          </p>
+      </div>
+  </div>
+
+  <div class="top-div">
+      <div class="top-div-header">
+          <span class="top-div-title">Estructura</span>
+          <i class="top-div-icon bi bi-diagram-3"></i>
+      </div>
+      <div class="top-div-content">
+          <p class="top-div-description">
+              AES-256 opera con bloques de 128 bits y utiliza una estructura de múltiples rondas (14 para claves de 256 bits):
+          </p>
+          <p class="top-div-description">
+              - Expansión de clave
+              - Adición de clave inicial
+              - Rondas de transformación que incluyen:
+                * SubBytes (sustitución)
+                * ShiftRows (permutación)
+                * MixColumns (difusión)
+                * AddRoundKey (mezcla con clave)
+          </p>
+          <p class="top-div-description">
+              Cada ronda aumenta la complejidad y seguridad del cifrado.
+          </p>
+      </div>
+  </div>
+
+  <div class="top-div">
+      <div class="top-div-header">
+          <span class="top-div-title">Aplicaciones</span>
+          <i class="top-div-icon bi bi-server"></i>
+      </div>
+      <div class="top-div-content">
+          <p class="top-div-description">
+              AES-256 se utiliza en múltiples campos:
+          </p>
+          <p class="top-div-description">
+              - Cifrado de datos gubernamentales
+              - Seguridad de comunicaciones militares
+              - Protección de transacciones bancarias
+              - Almacenamiento en la nube
+              - Comunicaciones de mensajería segura
+              - Protección de datos en dispositivos móviles
+              - Redes privadas virtuales (VPN)
+              - Sistemas de archivos cifrados
+          </p>
+      </div>
+  </div>
+
+  <div class="top-div">
+      <div class="top-div-header">
+          <span class="top-div-title">Funcionamiento</span>
+          <i class="top-div-icon bi bi-gear"></i>
+      </div>
+      <div class="top-div-content">
+          <p class="top-div-description">
+              El proceso de cifrado AES-256 funciona transformando bloques de datos mediante una serie de operaciones matemáticas complejas:
+          </p>
+          <p class="top-div-description">
+              1. Genera una clave expandida a partir de la clave original
+              2. Divide el texto plano en bloques de 128 bits
+              3. Aplica transformaciones en múltiples rondas
+              4. Mezcla cada bloque con una parte de la clave expandida
+              5. Produce un texto cifrado que solo puede descifrarse con la clave correcta
+          </p>
+          <p class="top-div-description">
+              La complejidad matemática y el número de rondas hacen que sea extremadamente resistente a ataques.
+          </p>
+      </div>
+  </div>
 </div>

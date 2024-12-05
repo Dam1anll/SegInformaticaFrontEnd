@@ -1,7 +1,7 @@
 {
-  "name": "Evaluación Docente",
-  "short_name": "Evaluación Docente",
-  "description": "Evaluación Docente de la Universidad Tecnológica del Sur de Sonora",
+  "name": "Encrypter",
+  "short_name": "Encrypter",
+  "description": "Sistema para encryptar texto con el algoritmo AES-256",
   "theme_color": "#0c9883",
   "background_color": "#fafafa",
   "display": "standalone",

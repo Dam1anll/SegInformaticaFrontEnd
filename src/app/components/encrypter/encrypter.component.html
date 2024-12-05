@@ -1,0 +1,93 @@
+<div class="encryption-container">
+  <div class="encryption-panel">
+    <div class="encryption-section">
+      <div class="encryption-header">
+        <h3>Encriptación</h3>
+      </div>
+
+      <form [formGroup]="form" class="encryption-form">
+        <div class="form-group">
+          <label for="textToEncrypt">Texto a Encriptar:</label>
+          <input 
+            id="textToEncrypt" 
+            formControlName="textToEncrypt" 
+            type="text" 
+            placeholder="Introduce el texto a encriptar"
+          />
+          <div *ngIf="form.get('textToEncrypt')?.invalid && form.get('textToEncrypt')?.touched">
+            <small>El texto es requerido.</small>
+          </div>
+          <button 
+            type="button" 
+            (click)="encryptText()" 
+            class="action-button"
+          >
+            Encriptar
+          </button>
+        </div>
+
+        <div *ngIf="encryptedText" class="result-section">
+          <h4>Texto Encriptado:</h4>
+          <p>{{ encryptedText }}</p>
+
+          <h4>Clave:</h4>
+          <p>{{ key }}</p>
+
+          <h4>IV:</h4>
+          <p>{{ iv }}</p>
+        </div>
+      </form>
+    </div>
+
+    <div class="decryption-section">
+      <div class="encryption-header">
+        <h3>Desencriptación</h3>
+      </div>
+
+      <form [formGroup]="form" class="encryption-form">
+        <div class="form-group">
+          <label for="encryptedText">Texto Encriptado:</label>
+          <input 
+            id="encryptedText" 
+            formControlName="encryptedText" 
+            type="text" 
+            placeholder="Introduce el texto encriptado"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="key">Clave:</label>
+          <input 
+            id="key" 
+            formControlName="key" 
+            type="text" 
+            placeholder="Introduce la clave"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="iv">IV:</label>
+          <input 
+            id="iv" 
+            formControlName="iv" 
+            type="text" 
+            placeholder="Introduce el IV"
+          />
+        </div>
+
+        <button 
+          type="button" 
+          (click)="decryptText()" 
+          class="action-button"
+        >
+          Desencriptar
+        </button>
+
+        <div *ngIf="decryptedText" class="result-section">
+          <h4>Texto Desencriptado:</h4>
+          <p>{{ decryptedText }}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

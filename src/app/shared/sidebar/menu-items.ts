@@ -11,29 +11,12 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
-    path: '/component/users',
-    title: 'Usuarios',
-    icon: 'bi bi-person',
-    role: ['ADMIN'],
-    class: '',
-    extralink: false,
-    submenu: []
-  },
-  {
-    path: '',
+    path: '/component/encrypter',
     title: 'Encryptar',
     icon: 'bi bi-person',
     role: ['ADMIN'],
     class: '',
     extralink: false,
-    submenu: [{
-      path: '/component/texto',
-      title: 'Texto',
-      icon: 'bi bi-person',
-      role: ['ADMIN'],
-      class: '',
-      extralink: false,
-      submenu: []
-    },]
+    submenu: []
   },
 ];
