@@ -11,6 +11,15 @@ export const ROUTES: RouteInfo[] = [
     submenu: []
   },
   {
+    path: '/component/users',
+    title: 'Usuarios',
+    icon: 'bi bi-speedometer2',
+    role: ['ADMIN'], 
+    class: '',
+    extralink: false,
+    submenu: []
+  },
+  {
     path: '/component/encrypter',
     title: 'Encryptar',
     icon: 'bi bi-person',

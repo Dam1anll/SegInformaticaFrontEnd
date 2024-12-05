@@ -6,7 +6,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  environment = environment;
+  private baseUrl = 'https://seginformaticabackend.onrender.com/';
 
   constructor(
     private http: HttpClient
@@ -23,19 +23,19 @@ export class ApiService {
   }
 
   get(data: string) {
-    return this.http.get(environment.url + data, this.http_header());
+    return this.http.get(this.baseUrl + data, this.http_header());
   }
 
   post(data: string, body: any) {
-    return this.http.post(environment.url + data, body, this.http_header());
+    return this.http.post(this.baseUrl + data, body, this.http_header());
   }
 
   put(data: string, body: any) {
-    return this.http.put(environment.url + data, body, this.http_header());
+    return this.http.put(this.baseUrl + data, body, this.http_header());
   }
 
   delete(data: string) {
-    return this.http.delete(environment.url + data, this.http_header());
+    return this.http.delete(this.baseUrl + data, this.http_header());
   }
 
   post_(data: string, body: any) {
@@ -44,7 +44,7 @@ export class ApiService {
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post(environment.url + data, body, options);
+    return this.http.post(this.baseUrl + data, body, options);
   }
 
   post__(data: string, body: any) {
@@ -53,11 +53,10 @@ export class ApiService {
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post(data, body, options);
+    return this.http.post(data, body, options); // Para usar URL completa si es necesario
   }
 
   get__(data: string) {
-    return this.http.get(data);
+    return this.http.get(data); // Para usar URL completa si es necesario
   }
-
 }
