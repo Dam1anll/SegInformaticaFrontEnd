@@ -79,7 +79,6 @@
 }
 
 .register-form {
-    color: #0d1117;
     .form-group {
         margin-bottom: 15px;
 
@@ -113,12 +112,12 @@
                 }
 
                 &.input-error {
-                    border-color: var(--error-color);
+                    border-color: #ffff;
                 }
             }
 
             .error-message {
-                color: var(--error-color);
+                color: #ffff;
                 font-size: 0.75rem;
                 margin-top: 6px;
             }
